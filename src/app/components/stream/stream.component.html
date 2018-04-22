@@ -1,0 +1,12 @@
+<div class="stream-container">
+  <video class="video-container" #video autoplay></video>
+  <div>
+    <button [disabled]="!isStreaming" (click)="playStream()"></button>
+  </div>
+</div>
+
+<!-- <ng-template #playStreamButton>
+  <div>
+    <button [disabled]="!isStreaming" (click)="playStream()"></button>
+  </div>
+</ng-template> -->

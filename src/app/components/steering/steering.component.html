@@ -1,0 +1,18 @@
+<div class="pilotage-container">
+  <div class="ui-container">
+    <div class="ui-feedback">
+      <ngx-gauge
+        type="arch"
+        thick="10"
+        [size]="100"
+        [min]="0"
+        [max]="100"
+        duration="1"
+        append="%"
+        [value]="steeringService.getCurSpeedInPercent()"
+        [thresholds]="gaugeMotorthresholdsConfig">
+      </ngx-gauge>
+    </div>
+    <app-virtual-gamepad *ngIf="displayVirtualGamepad()"></app-virtual-gamepad>
+  </div>
+</div>

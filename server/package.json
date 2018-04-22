@@ -1,0 +1,22 @@
+{
+  "name": "raspiboat-server",
+  "version": "0.1.0",
+  "description": "Embeded node js server on a model boat.",
+  "main": "lib/main.js",
+  "scripts": {
+    "test": "tsc spec/src/* --outDir spec/lib && jasmine",
+    "dev": "nodemon lib/main.js",
+    "dev:compile": "tsc --watch",
+    "compile": "tsc"
+  },
+  "author": "Guillaume Fay",
+  "license": "ISC",
+  "dependencies": {
+    "express-ws": "3.0.0",
+    "servoblaster": "^0.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.13",
+    "typescript": "^2.4.1"
+  }
+}

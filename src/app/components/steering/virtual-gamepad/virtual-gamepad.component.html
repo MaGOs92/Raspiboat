@@ -1,0 +1,17 @@
+<div class="virtual-gamepad">
+  <app-joystick (move)="joystickMoved($event)"></app-joystick>
+  <div class="button-container">
+      <button
+          (mousedown)="brakeButtonEvent('pressed')"
+          (mouseup)="brakeButtonEvent('released')"
+          [ngClass]="{'button-brake-pressed': brakeButtonPressed}"
+          class="button-brake">Brake
+      </button>
+      <button
+          (mousedown)="boostButtonEvent('pressed')"
+          (mouseup)="boostButtonEvent('released')"
+          [ngClass]="{'button-boost-pressed': boostButtonPressed}"
+          class="button-boost">Boost
+      </button>
+  </div>
+</div>
