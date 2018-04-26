@@ -1,14 +1,14 @@
 <div>
-  <div *ngIf="!steeringService.connected" class="disconnected-wrapper">
+  <div *ngIf="!isSteeringConnected()" class="disconnected-wrapper">
     <div>
       <div>La connexion au Raspiboat a échoué</div>
       <button (click)="tryConnection()">Ré-essayer</button>            
     </div>
   </div>
-  <div [hidden]="!streamService.connected" class="stream-wrapper">
+  <div [hidden]="!isStreamingConnected()" class="stream-wrapper">
     <app-stream></app-stream>
   </div>
-  <div [hidden]="!steeringService.connected" class="pilotage-wrapper">
+  <div [hidden]="!isSteeringConnected()" class="pilotage-wrapper">
     <app-steering></app-steering>
   </div>
 </div>

@@ -1,32 +1,31 @@
+import { environment } from './../../environments/environment';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import { raspiBoatConfig } from '../config';
+import { WebsocketService } from '../classes/websocket-service';
 
 @Injectable()
-export class StreamService {
-
-  STREAM_URL = raspiBoatConfig.rwsServer.protocol + '://' + raspiBoatConfig.ip + ':' + raspiBoatConfig.rwsServer.port + '/rws/ws';
-  streamWs: WebSocket;
-  connected: boolean;
+export class StreamService extends WebsocketService {
 
   isStreaming: EventEmitter<boolean> = new EventEmitter<boolean>();
   peerConnection: RTCPeerConnection;
   config = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
   stream: MediaStream;
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   connect() {
-    this.streamWs = new WebSocket(this.STREAM_URL);
-    this.streamWs.onopen = event => this.onOpen(event);
-    this.streamWs.onclose =  event => this.onClose(event);
-    this.streamWs.onmessage = event => this.onMessage(event);
-    this.streamWs.onerror = event => this.onError(event);
+    this.ws = new WebSocket(environment.streamUrl);
+    this.ws.onopen = event => this.onOpen(event);
+    this.ws.onclose =  event => this.onClose(event);
+    this.ws.onmessage = event => this.onMessage(event);
+    this.ws.onerror = event => this.onError(event);
   }
 
   onOpen(event) {
-    console.log('Websocket connnected: ' + this.streamWs.url);
+    console.log('Websocket connnected: ' + this.ws.url);
     this.connected = true;
     this.doRegister();
   }
@@ -42,9 +41,9 @@ export class StreamService {
   }
 
   webSocketSend(message: string) {
-    if (this.streamWs.readyState === WebSocket.OPEN ||
-      this.streamWs.readyState === WebSocket.CONNECTING) {
-      this.streamWs.send(message);
+    if (this.ws.readyState === WebSocket.OPEN ||
+      this.ws.readyState === WebSocket.CONNECTING) {
+      this.ws.send(message);
       return true;
     }
     return false;
@@ -86,8 +85,8 @@ export class StreamService {
   }
 
   doDisconnect() {
-    if (this.streamWs.readyState === 1) {
-      this.streamWs.close();
+    if (this.ws.readyState === 1) {
+      this.ws.close();
     }
   }
 

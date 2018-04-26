@@ -1,6 +1,5 @@
 import { StreamService } from './../../services/stream.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { raspiBoatConfig } from '../../config';
 
 @Component({
   selector: 'app-stream',
@@ -19,7 +18,6 @@ export class StreamComponent implements OnInit {
   ngOnInit() {
     this.video = this.videoRef.nativeElement;
     this.streamService.isStreaming.subscribe((isStreaming: boolean) => {
-      console.log('STREAM RECEIVED PEERCONNECTION');
       this.isStreaming = isStreaming;
       this.isStreamPlayed = false;
       if (isStreaming) {
@@ -35,7 +33,6 @@ export class StreamComponent implements OnInit {
 
   setVideoStream() {
     this.video.src = URL.createObjectURL(this.streamService.stream);
-    console.log('IN VIDEO STREAM', this.streamService.stream);
   }
 
   playStream() {

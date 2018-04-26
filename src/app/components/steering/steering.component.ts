@@ -29,4 +29,7 @@ export class SteeringComponent implements OnInit {
     return this.gamepadService.mode === CONTROL_MODE.VIRTUAL_GAMEPAD;
   }
 
+  getSpeedInPercent(): number {
+    return this.steeringService.getCurSpeedInPercent();
+  }
 }

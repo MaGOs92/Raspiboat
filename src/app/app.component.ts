@@ -21,4 +21,10 @@ export class AppComponent {
       this.streamService.connect();
     }
   }
+  isStreamingConnected() {
+    return this.streamService.connected;
+  }
+  isSteeringConnected() {
+    return this.steeringService.connected;
+  }
 }

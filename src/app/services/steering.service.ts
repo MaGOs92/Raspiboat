@@ -1,11 +1,9 @@
+import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { raspiBoatConfig } from '../config';
+import { WebsocketService } from '../classes/websocket-service';
 
 @Injectable()
-export class SteeringService {
-
-    private MOTORS_WS_URL: string = raspiBoatConfig.raspiBoatServer.protocol +
-      '://' + raspiBoatConfig.ip + ':' + raspiBoatConfig.raspiBoatServer.port + '/motors';
+export class SteeringService extends WebsocketService {
 
     MIN_DIRECTION = 115;
     MAX_DIRECTION = 185;
@@ -45,29 +43,27 @@ export class SteeringService {
         this._curDirection = direction;
     }
 
-    pilotageWs: WebSocket;
-    connected = false;
-
     constructor() {
-        this.curDirection = this.DEFAULT_DIRECTION;
-        this.curSpeed = this.DEFAULT_SPEED;
+      super();
+      this.curDirection = this.DEFAULT_DIRECTION;
+      this.curSpeed = this.DEFAULT_SPEED;
     }
 
     connect(): void {
-        if (this.pilotageWs) {
-            this.pilotageWs.close();
+        if (this.ws) {
+            this.ws.close();
         }
 
-        this.pilotageWs = new WebSocket(this.MOTORS_WS_URL);
+        this.ws = new WebSocket(environment.steeringUrl);
 
-        this.pilotageWs.onopen = () => {
+        this.ws.onopen = () => {
             console.log('Motors websocket : connection opened');
             this.connected = true;
         };
 
-        this.pilotageWs.onmessage = (msg: MessageEvent) => {};
+        this.ws.onmessage = (msg: MessageEvent) => {};
 
-        this.pilotageWs.onclose = () => {
+        this.ws.onclose = () => {
             console.log('Motors websocket : connection closed');
             this.connected = false;
         };
@@ -83,7 +79,7 @@ export class SteeringService {
             speed: this.curSpeed,
             direction: this.curDirection
         };
-        this.pilotageWs.send(JSON.stringify(data));
+        this.ws.send(JSON.stringify(data));
     }
 
     getCurSpeedInPercent(): number {
