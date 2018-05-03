@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "build:webapp": "ng build --prod",
-    "build:server": "cd server && npm run compile",
+    "build:server": "cd server && npm i && npm run compile",
     "build:clean": "rm -r build/ && mkdir build",
     "build:moveDeps": "mv dist build && cp -r server build",
     "build": "npm run build:clean && npm run build:webapp && npm run build:server && npm run build:moveDeps"

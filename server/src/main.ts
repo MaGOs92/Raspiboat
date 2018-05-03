@@ -28,8 +28,8 @@ app.ws('/motors', (ws, req) => {
     servoController.calibrate();
     escController.calibrate();
 
-    ws.on('message', (msg: MessageEvent) => {
-        const data = JSON.parse(msg.data);
+    ws.on('message', msg => {
+        const data = JSON.parse(msg);
         escController.setPwm(data.speed);
         servoController.setPwm(data.direction);
     });
@@ -44,7 +44,9 @@ app.ws('/motors', (ws, req) => {
     });
 
     // Start heartbeat
-    const heartBeat = new Heartbeat(wsServer, ws);
+    // FIXME : /home/pi/raspiboat/server/lib/heartbeat.js:24
+    // this.ws.isAlive = true; => TypeError: Cannot set property 'isAlive' of undefined
+    // const heartBeat = new Heartbeat(wsServer, ws);
 });
 
 app.listen(3000);
