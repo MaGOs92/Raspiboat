@@ -1,8 +1,13 @@
-<div>
+<div #appWrapper class="app-wrapper">
   <div *ngIf="!isSteeringConnected()" class="disconnected-wrapper">
     <div>
-      <div>La connexion au Raspiboat a échoué</div>
-      <button (click)="tryConnection()">Ré-essayer</button>            
+      <div>La connexion au Raspiboat a échoué...</div>
+      <div>
+        <span>Ré-essayer : </span>
+        <button type="button" (click)="tryConnection()">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </div>
     </div>
   </div>
   <div [hidden]="!isStreamingConnected()" class="stream-wrapper">
@@ -11,4 +16,11 @@
   <div [hidden]="!isSteeringConnected()" class="pilotage-wrapper">
     <app-steering></app-steering>
   </div>
+  <button (click)="toggleFullScreen()" type="button" class="btn-fs">
+    <i
+      class="fa"
+      [ngClass]="{'fa-compress': isFullscreen, 'fa-expand': !isFullscreen}"
+      aria-hidden="true">
+    </i>
+  </button>
 </div>

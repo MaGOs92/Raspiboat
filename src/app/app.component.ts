@@ -1,5 +1,6 @@
 import { StreamService, SteeringService } from './services';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import fscreen from 'fscreen';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  @ViewChild('appWrapper') appWrapperRef;
+  isFullscreen = false;
+
   constructor(
     private steeringService: SteeringService,
     private streamService: StreamService
-  ) {}
+  ) {
+    fscreen.onfullscreenchange = () => this.isFullscreen = !this.isFullscreen;
+  }
 
   tryConnection() {
     if (!this.steeringService.connected) {
@@ -26,5 +32,13 @@ export class AppComponent {
   }
   isSteeringConnected() {
     return this.steeringService.connected;
+  }
+  toggleFullScreen() {
+    if (!fscreen.fullscreenEnabled) {
+      return;
+    }
+    fscreen.fullscreenElement ?
+      fscreen.exitFullscreen() :
+      fscreen.requestFullscreen(this.appWrapperRef.nativeElement);
   }
 }
