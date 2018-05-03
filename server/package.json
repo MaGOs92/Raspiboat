@@ -12,6 +12,7 @@
   "author": "Guillaume Fay",
   "license": "ISC",
   "dependencies": {
+    "express": "4.16.3",
     "express-ws": "3.0.0",
     "servoblaster": "^0.1.1"
   },

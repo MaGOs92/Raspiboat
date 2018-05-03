@@ -8,7 +8,7 @@ import ESCController from './esc';
 import MotorController from './motor';
 
 const app = express();
-expressWs(app);
+const wsServer = expressWs(app);
 
 // Serve the webapp
 const webappPath = path.join(__dirname, '..', '..', 'dist');
@@ -44,7 +44,7 @@ app.ws('/motors', (ws, req) => {
     });
 
     // Start heartbeat
-    const heartBeat = new Heartbeat(ws);
+    const heartBeat = new Heartbeat(wsServer, ws);
 });
 
 app.listen(3000);

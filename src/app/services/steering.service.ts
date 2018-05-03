@@ -75,11 +75,10 @@ export class SteeringService extends WebsocketService {
     }
 
     sendCommand(): void {
-        const data = {
+        this.ws.send(JSON.stringify({
             speed: this.curSpeed,
             direction: this.curDirection
-        };
-        this.ws.send(JSON.stringify(data));
+        }));
     }
 
     getCurSpeedInPercent(): number {

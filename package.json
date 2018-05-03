@@ -6,10 +6,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "build:webapp": "ng build --prod",
+    "build:server": "cd server && npm run compile",
+    "build:clean": "rm -r build/ && mkdir build",
+    "build:moveDeps": "mv dist build && cp -r server build",
+    "build": "npm run build:clean && npm run build:webapp && npm run build:server && npm run build:moveDeps"
   },
   "private": true,
   "dependencies": {
