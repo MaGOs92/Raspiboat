@@ -1,22 +1,14 @@
 import MotorManager from './motor';
 import * as servoblaster from 'servoblaster';
-import { WriteStream } from "fs";
+import { WriteStream } from 'fs';
 
 export default class ESCController implements MotorManager {
-    
-    ESC_PIN: number = 2;
+
+    ESC_PIN = 2;
     escStream: WriteStream;
-    isWriting: boolean = false;
+    isWriting = false;
 
-    curSpeed: number = 150;
-
-    speedToPwm = {
-        '-1': 140,
-        '0': 150,
-        '1': 160,
-        '2': 170,
-        '3': 180
-    };
+    curSpeed = 150;
 
     constructor() {
         console.log('Creating esc controller');
@@ -46,10 +38,6 @@ export default class ESCController implements MotorManager {
             this.escStream.write(speed, () => {
                 this.isWriting = false;
                 this.curSpeed = speed;
-                // this.ws.send(JSON.stringify({
-                //     motor: 'esc',
-                //     speed: this.curSpeed
-                // }));
             });
         }
     }

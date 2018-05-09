@@ -10,16 +10,6 @@ export default class ServoController implements MotorManager {
 
     curDirection = 150;
 
-    directionToPwm = {
-        '-3': 210,
-        '-2': 190,
-        '-1': 170,
-        '0': 150,
-        '1': 130,
-        '2': 110,
-        '3': 90
-    };
-
     constructor() {
         console.log('Creating servo controller');
         this.servoStream = servoblaster.createWriteStream(this.SERVO_PIN);
@@ -48,10 +38,6 @@ export default class ServoController implements MotorManager {
             this.servoStream.write(direction, () => {
                 this.isWriting = false;
                 this.curDirection = direction;
-                // this.ws.send(JSON.stringify({
-                //     motor: 'servo',
-                //     direction: this.curDirection
-                // }));
             });
         }
     }

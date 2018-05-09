@@ -67,7 +67,7 @@ export class GamepadService {
         // Joystick X axis
         const xAxis = event.joystickValues.x;
         const directionDelta = this.steeringService.MAX_DIRECTION - this.steeringService.DEFAULT_DIRECTION;
-        this.steeringService.curDirection = this.steeringService.DEFAULT_DIRECTION + (directionDelta * xAxis);
+        this.steeringService.curDirection = this.steeringService.DEFAULT_DIRECTION - (directionDelta * xAxis);
 
         // Buttons
         if (event.boostButtonPressed && event.brakeButtonPressed) {
